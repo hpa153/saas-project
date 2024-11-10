@@ -1,0 +1,39 @@
+{
+  "name": "saas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.5.0",
+    "@neondatabase/serverless": "^0.9.4",
+    "@prisma/adapter-neon": "^5.18.0",
+    "@prisma/client": "^5.18.0",
+    "@tanstack/react-query": "^5.59.20",
+    "@upstash/redis": "^1.34.0",
+    "clsx": "^2.1.1",
+    "hono": "^4.5.5",
+    "next": "15.0.3",
+    "prisma": "^5.18.0",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "superjson": "^2.2.1",
+    "tailwind-merge": "^2.5.2",
+    "wrangler": "^3.72.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
