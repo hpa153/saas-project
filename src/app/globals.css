@@ -69,4 +69,17 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Discord mock */
+  .discord-dm-icon {
+    @apply flex items-center text-sm px-2 py-1.5 rounded hover:bg-[#393c43] text-[#dcddde] cursor-not-allowed;
+  }
+
+  .discord-dm-footer-icon {
+    @apply size-5 text-discord-light-gray hover:text-white cursor-pointer;
+  }
+
+  .discord-main-icon {
+    @apply size-5 hover:text-white cursor-not-allowed hidden sm:block;
+  }
 }
