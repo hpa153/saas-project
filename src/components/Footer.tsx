@@ -8,13 +8,13 @@ const Footer = () => {
         <Link href="/">
           <Image
             src="/brand-asset-profile-picture.png"
-            alt="SaaS Pro logo"
+            alt="SaaSPro logo"
             width={24}
             height={24}
             className="rounded-lg"
           />
         </Link>
-        <p>&copy; {new Date().getFullYear()} SaaS Pro. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} SaaSPro. All rights reserved.</p>
       </div>
     </footer>
   );

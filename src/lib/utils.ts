@@ -1,11 +1,11 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export const cn = (...inputs: ClassValue[]) => {
+const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
 
-export const toCapitalizedString = (str: string) => {
+const toCapitalizedString = (str: string) => {
   str = str.charAt(0).toUpperCase() + str.slice(1);
 
   for (let x = 1; x < str.length; x++) {
@@ -17,3 +17,10 @@ export const toCapitalizedString = (str: string) => {
 
   return str;
 };
+
+const parseColor = (color: string) => {
+  const hex = color.startsWith("#") ? color.slice(1) : color;
+  return parseInt(hex, 16);
+};
+
+export { cn, toCapitalizedString, parseColor };

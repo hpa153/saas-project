@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import { Inter } from "next/font/google";
+import { EB_Garamond } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+import "./globals.css";
+import Providers from "@/components/Providers";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const eb_garamond = EB_Garamond({
+  subsets: ["latin"],
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
-  title: "SaaS Pro",
-  description: "SaaS Pro",
+  title: "SaaSPro",
+  description: "SaaSPro",
 };
 
 export default function RootLayout({
@@ -26,11 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
+      <html lang="en" className={cn(inter.variable, eb_garamond.variable)}>
+        <body className="font-sans bg-brand-50 text-brand-950 antialiased">
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>

@@ -76,12 +76,12 @@ const MockDiscordUI = ({ children }: PropsWithChildren) => {
             <div className="flex items-center px-2 py-1.5 rounded bg-[#393c43] text-white cursor-pointer">
               <Image
                 src="/brand-asset-profile-picture.png"
-                alt="Saas Pro Avatar"
+                alt="SaasPro Avatar"
                 width={32}
                 height={32}
                 className="object-cover rounded-full mr-3"
               />
-              <span className="font-medium">Saas Pro</span>
+              <span className="font-medium">SaasPro</span>
             </div>
 
             <div className="my-1 space-y-px">
@@ -127,7 +127,7 @@ const MockDiscordUI = ({ children }: PropsWithChildren) => {
             <div className="relative">
               <Image
                 src="/brand-asset-profile-picture.png"
-                alt="SaaS Pro Avatar"
+                alt="SaaSPro Avatar"
                 width={40}
                 height={40}
                 className="object-cover rounded-full mr-3"
@@ -135,7 +135,7 @@ const MockDiscordUI = ({ children }: PropsWithChildren) => {
               <div className="absolute bottom-0 right-3 size-3 bg-green-500 rounded-full border-2 border-[#36393f]" />
             </div>
 
-            <p className="font-semibold text-white">Saas Pro</p>
+            <p className="font-semibold text-white">SaasPro</p>
           </div>
 
           <div className="ml-auto flex items-center space-x-4 text-discord-light-gray">
@@ -161,7 +161,7 @@ const MockDiscordUI = ({ children }: PropsWithChildren) => {
             <input
               readOnly
               type="text"
-              placeholder="Message @Saas Pro"
+              placeholder="Message @SaasPro"
               className="flex-1 bg-transparent py-2.5 px-1 text-white placeholder-[#72767d] focus:outline-none cursor-not-allowed"
             />
             <div className="flex items-center space-x-3 mx-3 text-discord-light-gray">
