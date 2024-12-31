@@ -3,33 +3,19 @@ import Image from "next/image";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import { ads, discordMessages } from "@/constants";
+import { ADS, DISCORD_MESAGES, HOME_CODE_SNIPPET } from "@/constants";
 import Heading from "@/components/Heading";
 import PageWrapper from "@/components/PageWrapper";
-import { ShinyButton } from "@/components/ShinyButton";
+import ShinyButton from "@/components/ShinyButton";
 import MockDiscordUI from "@/components/MockDiscordUI";
 import { AnimatedList } from "@/components/ui/animated-list";
 import { BadgeColor, DiscordMessage } from "@/components/DiscordMessage";
 import CustomerReview from "@/components/CustomerReview";
 
-const codeSnippet = `await fetch("http://localhost:3000/api/v1/events", {
-  method: "POST",
-  body: JSON.stringify({
-    category: "sale",
-    fields: {
-      plan: "PRO",
-      email: "phuonganhhoang@email.com",
-      amount: 49.00
-    }
-  }),
-  headers: {
-    Authorization: "Bearer <YOUR_API_KEY>"
-  }
-})`;
-
 export default function Home() {
   return (
     <>
+      {/* Header */}
       <section className="relative py-24 sm:py-32 bg-brand-25">
         <PageWrapper className="text-center">
           <div className="flex flex-col items-center gap-10">
@@ -43,7 +29,7 @@ export default function Home() {
               </Heading>
             </div>
             <p className="text-base/7 text-gray-600 max-w-prose text-center text-pretty">
-              Saas Pro is the easiest way to monitor your SaaS. Get instant
+              SaasPro is the easiest way to monitor your SaaS. Get instant
               notifications for{" "}
               <span className="font-semibold text-gray-700">
                 sales, new users, or any other event
@@ -52,7 +38,7 @@ export default function Home() {
             </p>
 
             <ul className="space-y-2 text-base/7 text-gray-600 text-left items-start">
-              {ads.map((item, idx) => (
+              {ADS.map((item, idx) => (
                 <li key={idx} className="flex gap-1.5 items-center">
                   <Check className="size-5 shrink-0 text-brand-700" />
                   {item}
@@ -71,6 +57,8 @@ export default function Home() {
           </div>
         </PageWrapper>
       </section>
+
+      {/* Discord mock */}
       <section className="relative bg-brand-25 pb-4">
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
         <div className="relative mx-auto">
@@ -78,12 +66,9 @@ export default function Home() {
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
               <MockDiscordUI>
                 <AnimatedList className="flex-col-reverse">
-                  {discordMessages.map((mess, idx) => (
+                  {DISCORD_MESAGES.map((mess, idx) => (
                     <DiscordMessage
                       key={idx}
-                      avatarSrc="/brand-asset-profile-picture.png"
-                      avatarAlt="Saas Pro Avatar"
-                      username="Saas Pro"
                       timestamp={mess.timestamp}
                       badgeText={mess.badgeText}
                       badgeColor={mess.badgeColor as BadgeColor}
@@ -98,6 +83,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Bento grid */}
       <section className="relative py-24 sm:py-32 bg-brand-25">
         <PageWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
@@ -144,7 +130,7 @@ export default function Home() {
                     Track Any Event
                   </p>
                   <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                    From new user signups to successful payments, Saas Pro
+                    From new user signups to successful payments, SaasPro
                     notifies you for all critical events in your SaaS.
                   </p>
                 </div>
@@ -196,7 +182,7 @@ export default function Home() {
                     Easy Integration
                   </p>
                   <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                    Connect Saas Pro with your existing workflows in minutes and
+                    Connect SaasPro with your existing workflows in minutes and
                     call our intuitive logging API from any language.
                   </p>
                 </div>
@@ -228,7 +214,7 @@ export default function Home() {
                             },
                           }}
                         >
-                          {codeSnippet}
+                          {HOME_CODE_SNIPPET}
                         </SyntaxHighlighter>
                       </div>
                     </div>
@@ -240,6 +226,7 @@ export default function Home() {
         </PageWrapper>
       </section>
 
+      {/* Testimonials */}
       <section className="relative py-24 sm:py-32 bg-white">
         <PageWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
@@ -251,7 +238,7 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
             <CustomerReview
-              review="SaaS Pro has been a game-changer for me. I've been using it for two months now and seeing sales pop up in real-time is super satisfying."
+              review="SaaSPro has been a game-changer for me. I've been using it for two months now and seeing sales pop up in real-time is super satisfying."
               name="Karen Krox"
               id="@itskaren"
               img="/user-2.png"
@@ -259,7 +246,7 @@ export default function Home() {
             />
 
             <CustomerReview
-              review="SaaS Pro's been paying off for our SaaS. Nice to have simple way to see how we're doing day-to-day. Definitely makes our lives easier."
+              review="SaaSPro's been paying off for our SaaS. Nice to have simple way to see how we're doing day-to-day. Definitely makes our lives easier."
               name="Thomas Edison"
               id="@itsthomas"
               img="/user-1.png"
