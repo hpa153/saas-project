@@ -117,9 +117,16 @@ const FREE_QUOTA = {
 };
 
 const PAID_QUOTA = {
-  maxEventsPerMonth: 5000,
+  maxEventsPerMonth: 10000,
   maxEventCategories: 20,
 };
+
+const INCLUDED_FEATURES = [
+  "10.000 real-time events per month",
+  "20 event categories",
+  "Advanced analytics and insights",
+  "Priority support",
+];
 
 export {
   ADS,
@@ -129,4 +136,5 @@ export {
   SIDEBAR_ITEMS,
   FREE_QUOTA,
   PAID_QUOTA,
+  INCLUDED_FEATURES,
 };

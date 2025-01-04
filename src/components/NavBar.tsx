@@ -18,6 +18,15 @@ const NavBar = async () => {
           <div className="h-full flex items-center space-x-4">
             {user ? (
               <>
+                <Link
+                  href="/pricing"
+                  className={buttonVariants({
+                    size: "sm",
+                    variant: "ghost",
+                  })}
+                >
+                  Pricing
+                </Link>
                 <SignOutButton>
                   <Button size="sm" variant="ghost">
                     Sign out
@@ -36,15 +45,6 @@ const NavBar = async () => {
               </>
             ) : (
               <>
-                <Link
-                  href="/pricing"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
-                >
-                  Pricing
-                </Link>
                 <SignInButton>
                   <Button size="sm" variant="ghost">
                     Sign In

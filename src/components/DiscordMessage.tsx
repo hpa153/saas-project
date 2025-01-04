@@ -5,6 +5,9 @@ import Image from "next/image";
 export type BadgeColor = "yellow" | "green" | "grey";
 
 export interface DiscordMessageProps {
+  avatarSrc?: string;
+  avatarAlt?: string;
+  username?: string;
   timestamp: string;
   badgeText: string;
   badgeColor: BadgeColor;

@@ -58,7 +58,7 @@ const POST = async (req: NextRequest) => {
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
 
-    const quota = await db.quota.findUnique({
+    const quota = await db.quota.findFirst({
       where: {
         userId: user.id,
         month: currentMonth,
@@ -141,23 +141,48 @@ const POST = async (req: NextRequest) => {
     });
 
     try {
-      await discord.sendEmbed(dmChannel.id, eventData);
-
       await db.event.update({
         where: { id: event.id },
         data: { deliveryStatus: "DELIVERED" },
       });
 
-      await db.quota.upsert({
-        where: { userId: user.id, month: currentMonth, year: currentYear },
-        update: { count: { increment: 1 } },
-        create: {
+      // await db.quota.upsert({
+      //   where: { userId: user.id, month: currentMonth, year: currentYear },
+      //   update: { count: { increment: 1 } },
+      //   create: {
+      //     userId: user.id,
+      //     month: currentMonth,
+      //     year: currentYear,
+      //     count: 1,
+      //   },
+      // });
+
+      // Fixed upsert issue when searching for multiple fields with binding
+      const quota = await db.quota.findFirst({
+        where: {
           userId: user.id,
           month: currentMonth,
           year: currentYear,
-          count: 1,
         },
       });
+
+      if (quota) {
+        await db.quota.update({
+          where: { id: quota.id },
+          data: { count: quota.count + 1 },
+        });
+      } else {
+        await db.quota.create({
+          data: {
+            userId: user.id,
+            month: currentMonth,
+            year: currentYear,
+            count: 1,
+          },
+        });
+      }
+
+      await discord.sendEmbed(dmChannel.id, eventData);
     } catch (err) {
       await db.event.update({
         where: { id: event.id },
