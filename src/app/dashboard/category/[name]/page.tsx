@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/db";
 import DashboardPage from "@/components/dashboard/DashboardPage";
 import CategoryPageContent from "@/components/category/CategoryPageContent";
+import { toCapitalizedString } from "@/lib/utils";
 
 interface CategoryPageProps {
   params: {
@@ -53,7 +54,9 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const hasEvents = category._count.events > 0;
 
   return (
-    <DashboardPage title={`${category.emoji} ${category.name} events`}>
+    <DashboardPage
+      title={`${category.emoji} ${toCapitalizedString(category.name)} events`}
+    >
       <CategoryPageContent hasEvents={hasEvents} category={category} />
     </DashboardPage>
   );

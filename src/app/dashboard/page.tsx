@@ -3,12 +3,13 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { db } from "@/db";
-// import { createCheckoutSession } from "@/lib/stripe";
+import { createCheckoutSession } from "@/lib/stripe";
 
 import { Button } from "@/components/ui/button";
 import DashboardPage from "@/components/dashboard/DashboardPage";
 import DashboardPageContent from "@/components/dashboard/DashboardContent";
 import CreateEventCategoryModal from "@/components/CreateEventCategoryModal";
+import { PaymentSuccessModal } from "@/components/upgrade/PaymentSuccessModal";
 
 interface DashboardProps {
   searchParams: {
@@ -31,22 +32,24 @@ const Dashboard = async ({ searchParams }: DashboardProps) => {
     return redirect("/welcome");
   }
 
-  // const intent = searchParams.intent;
+  const { intent } = await searchParams;
 
-  // if (intent === "upgrade") {
-  //   const session = await createCheckoutSession({
-  //     userEmail: user.email,
-  //     userId: user.id,
-  //   });
+  if (intent === "upgrade") {
+    const session = await createCheckoutSession({
+      userEmail: user.email,
+      userId: user.id,
+    });
 
-  //   if (session.url) redirect(session.url);
-  // }
+    if (session.url) {
+      redirect(session.url);
+    }
+  }
 
-  // const success = searchParams.success;
+  const { success } = await searchParams;
 
   return (
     <>
-      {/* {success ? <PaymentSuccessModal /> : null} */}
+      {success ? <PaymentSuccessModal /> : null}
 
       <DashboardPage
         cta={

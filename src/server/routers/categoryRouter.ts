@@ -180,7 +180,7 @@ export const categoryRouter = router({
           startDate = startOfDay(now);
           break;
         case "week":
-          startDate = startOfWeek(now, { weekStartsOn: 0 });
+          startDate = startOfWeek(now, { weekStartsOn: 1 });
           break;
         case "month":
           startDate = startOfMonth(now);
@@ -193,7 +193,7 @@ export const categoryRouter = router({
             EventCategory: { name, userId: ctx.user.id },
             createdAt: { gte: startDate },
           },
-          skip: (page - 1) * limit,
+          skip: page * limit,
           take: limit,
           orderBy: { createdAt: "desc" },
         }),

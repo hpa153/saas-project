@@ -1,5 +1,7 @@
 import { BarChart } from "lucide-react";
+
 import Card from "../ui/card";
+import { toCapitalizedString } from "@/lib/utils";
 
 type NumericFieldSumCardsProps = {
   numericFieldSums: Record<
@@ -26,9 +28,7 @@ const NumericFieldSumCards = ({
     return (
       <Card key={field}>
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <p className="text-sm/6 font-medium">
-            {field.charAt(0).toUpperCase() + field.slice(1)}
-          </p>
+          <p className="text-sm/6 font-medium">{toCapitalizedString(field)}</p>
           <BarChart className="size-4 text-muted-foreground" />
         </div>
 

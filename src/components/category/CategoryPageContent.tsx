@@ -8,7 +8,7 @@ import { ArrowUpDown, BarChart } from "lucide-react";
 import { isAfter, isToday, startOfMonth, startOfWeek } from "date-fns";
 
 import { client } from "@/server/client";
-import { cn } from "@/lib/utils";
+import { cn, toCapitalizedString } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ColumnDef,
@@ -45,6 +45,7 @@ const CategoryPageContent = ({
   hasEvents: hasInitialEvents,
   category,
 }: CategoryPageContentProps) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [activeTab, setActiveTab] = useState<"today" | "week" | "month">(
@@ -53,7 +54,7 @@ const CategoryPageContent = ({
 
   // https://localhost:3000/dashboard/category/sale?page=5&limit=30
   const page = parseInt(searchParams.get("page") || "1", 10);
-  const limit = parseInt(searchParams.get("limit") || "30", 10);
+  const limit = parseInt(searchParams.get("limit") || "20", 10);
 
   const [pagination, setPagination] = useState({
     pageIndex: page - 1,
@@ -76,7 +77,7 @@ const CategoryPageContent = ({
     queryFn: async () => {
       const res = await client.category.getEventsByCategoryName.$get({
         name: category.name,
-        page: pagination.pageIndex + 1,
+        page: pagination.pageIndex,
         limit: pagination.pageSize,
         timeRange: activeTab,
       });
@@ -117,7 +118,7 @@ const CategoryPageContent = ({
         ? Object.keys(data.events[0].fields as object).map((field) => ({
             accessorFn: (row: Event) =>
               (row.fields as Record<string, any>)[field],
-            header: field,
+            header: toCapitalizedString(field),
             cell: ({ row }: { row: Row<Event> }) =>
               (row.original.fields as Record<string, any>)[field] || "-",
           }))
@@ -167,8 +168,6 @@ const CategoryPageContent = ({
     },
   });
 
-  const router = useRouter();
-
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set("page", (pagination.pageIndex + 1).toString());
@@ -190,7 +189,7 @@ const CategoryPageContent = ({
     > = {};
 
     const now = new Date();
-    const weekStart = startOfWeek(now, { weekStartsOn: 0 });
+    const weekStart = startOfWeek(now, { weekStartsOn: 1 });
     const monthStart = startOfMonth(now);
 
     data.events.forEach((event) => {
@@ -257,7 +256,7 @@ const CategoryPageContent = ({
               <div>
                 <p className="text-2xl font-bold">{data?.eventsCount || 0}</p>
                 <p className="text-xs/5 text-muted-foreground">
-                  Events{" "}
+                  event(s){" "}
                   {activeTab === "today"
                     ? "today"
                     : activeTab === "week"
