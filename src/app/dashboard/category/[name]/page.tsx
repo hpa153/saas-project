@@ -7,9 +7,9 @@ import CategoryPageContent from "@/components/category/CategoryPageContent";
 import { toCapitalizedString } from "@/lib/utils";
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     name: string | string[] | undefined;
-  };
+  }>;
 }
 
 const CategoryPage = async ({ params }: CategoryPageProps) => {
