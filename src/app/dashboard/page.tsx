@@ -12,9 +12,9 @@ import CreateEventCategoryModal from "@/components/CreateEventCategoryModal";
 import { PaymentSuccessModal } from "@/components/upgrade/PaymentSuccessModal";
 
 interface DashboardProps {
-  searchParams: {
+  searchParams: Promise<{
     [key: string]: string | string[] | undefined;
-  };
+  }>;
 }
 
 const Dashboard = async ({ searchParams }: DashboardProps) => {
