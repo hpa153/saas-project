@@ -6,6 +6,7 @@ import DashboardPage from "@/components/dashboard/DashboardPage";
 import CategoryPageContent from "@/components/category/CategoryPageContent";
 import { toCapitalizedString } from "@/lib/utils";
 
+// Fixed PageProps constraint issue
 interface CategoryPageProps {
   params: Promise<{
     name: string | string[] | undefined;

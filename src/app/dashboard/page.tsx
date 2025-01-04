@@ -11,6 +11,7 @@ import DashboardPageContent from "@/components/dashboard/DashboardContent";
 import CreateEventCategoryModal from "@/components/CreateEventCategoryModal";
 import { PaymentSuccessModal } from "@/components/upgrade/PaymentSuccessModal";
 
+// Fixed PageProps constraint issue
 interface DashboardProps {
   searchParams: Promise<{
     [key: string]: string | string[] | undefined;
