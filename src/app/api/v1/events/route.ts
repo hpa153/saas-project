@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { z } from "zod";
 
 import { db } from "@/db";
@@ -10,30 +11,14 @@ import { toCapitalizedString } from "@/lib/utils";
 const POST = async (req: NextRequest) => {
   try {
     // Validate user
-    const authHeader = req.headers.get("Authorization");
+    const auth = await currentUser();
 
-    if (!authHeader) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    if (!authHeader.startsWith("Bearer ")) {
-      return NextResponse.json(
-        { message: "Inavalid auth header format!" },
-        { status: 401 }
-      );
-    }
-
-    const apiKey = authHeader.split(" ")[1];
-
-    if (!apiKey || apiKey.trim() === "") {
-      return NextResponse.json(
-        { message: "Invalid API Key!" },
-        { status: 401 }
-      );
+    if (!auth) {
+      return NextResponse.redirect("/sign-in");
     }
 
     const user = await db.user.findUnique({
-      where: { apiKey },
+      where: { externalId: auth.id },
       include: { EventCategories: true },
     });
 
