@@ -5,53 +5,20 @@ import { db } from "@/db";
 import { FREE_QUOTA, PAID_QUOTA } from "@/constants";
 import { DiscordClient } from "@/lib/discordClient";
 import { REQUEST_VALIDATOR } from "@/lib/validators";
-import { toCapitalizedString } from "@/lib/utils";
+import { toCapitalizedString, validateUser } from "@/lib/utils";
 
 const POST = async (req: NextRequest) => {
   try {
     // Validate user
     const authHeader = req.headers.get("Authorization");
 
-    if (!authHeader) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    const userResponse = await validateUser(authHeader);
+
+    if (userResponse instanceof NextResponse) {
+      return userResponse;
     }
 
-    if (!authHeader.startsWith("Bearer ")) {
-      return NextResponse.json(
-        { message: "Inavalid auth header format!" },
-        { status: 401 }
-      );
-    }
-
-    const apiKey = authHeader.split(" ")[1];
-
-    if (!apiKey || apiKey.trim() === "") {
-      return NextResponse.json(
-        { message: "Invalid API Key!" },
-        { status: 401 }
-      );
-    }
-
-    const user = await db.user.findUnique({
-      where: { apiKey },
-      include: { EventCategories: true },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { message: "Invalid API Key!" },
-        { status: 401 }
-      );
-    }
-
-    if (!user.discordId) {
-      return NextResponse.json(
-        {
-          message: "Please enter your discord ID in your account settings",
-        },
-        { status: 403 }
-      );
-    }
+    const user = userResponse;
 
     // Validate quota amount
     const currentDate = new Date();
@@ -83,7 +50,7 @@ const POST = async (req: NextRequest) => {
 
     // Send Discord message
     const discord = new DiscordClient(process.env.DISCORD_BOT_TOKEN);
-    const dmChannel = await discord.createDM(user.discordId);
+    const dmChannel = await discord.createDM(user.discordId!);
     let requestData: unknown;
 
     try {
@@ -146,18 +113,6 @@ const POST = async (req: NextRequest) => {
         data: { deliveryStatus: "DELIVERED" },
       });
 
-      // await db.quota.upsert({
-      //   where: { userId: user.id, month: currentMonth, year: currentYear },
-      //   update: { count: { increment: 1 } },
-      //   create: {
-      //     userId: user.id,
-      //     month: currentMonth,
-      //     year: currentYear,
-      //     count: 1,
-      //   },
-      // });
-
-      // Fixed upsert issue when searching for multiple fields with binding
       const quota = await db.quota.findFirst({
         where: {
           userId: user.id,
