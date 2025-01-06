@@ -50,7 +50,7 @@ const DISCORD_MESAGES: DiscordMessageProps[] = [
   },
 ];
 
-const HOME_CODE_SNIPPET = `await fetch("http://localhost:3000/api/v1/events", {
+const HOME_CODE_SNIPPET = `await fetch("https://pa-saaspro.netlify.app/api/v1/events", {
   method: "POST",
   body: JSON.stringify({
     category: "sale",
